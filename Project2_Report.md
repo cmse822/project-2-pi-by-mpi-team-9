@@ -1,10 +1,12 @@
 ### Part 1: Warm-up Exercises
 * Exercise 2.18
+     
      In the second loop, which is a parallel loop, it writes to the same elements of the array 'a' without any coordination. This lack of synchronization can lead to a conflict condition where multiple threads access and modify the same memory locations simultaneously. As a result, the final values of the elements in array 'a' can be incorrect.
 
 
 * Exercise 2.19
-False sharing occurs when multiple threads concurrently access different variables that are located within the same cache line. With a chunksize of 1, adjacent elements of array 'a' are likely to be stored in the same cache line, leading to unnecessary cache line invalidations and transfers between CPU caches as each thread modifies its respective element. This can significantly degrade performance. To mitigate false sharing and improve performance, it is recommended to use a larger chunksize that ensures each thread operates on a distinct portion of the data, minimizing cache line contention. The optimal chunk size depends on the architecture and specific characteristics of the hardware.
+
+    False sharing occurs when multiple threads concurrently access different variables that are located within the same cache line. With a chunksize of 1, adjacent elements of array 'a' are likely to be stored in the same cache line, leading to unnecessary cache line invalidations and transfers between CPU caches as each thread modifies its respective element. This can significantly degrade performance. To mitigate false sharing and improve performance, it is recommended to use a larger chunksize that ensures each thread operates on a distinct portion of the data, minimizing cache line contention. The optimal chunk size depends on the architecture and specific characteristics of the hardware.
 
 
 
@@ -20,6 +22,34 @@ False sharing occurs when multiple threads concurrently access different variabl
     For the case of myTaskID==0, only two values are averaged, as there is no value left of the first element. For the case of myTaskID==nTasks-1, again only two values are averaged, as there is no value right of the last element.
 
 * Exercise 2.22
+
+    Take another look at equation (2.5) and give pseudocode that solves the problem using non-blocking sends and receives. What is the disadvantage of this code over a blocking solution?
+
+    A non-blocking coded up solution is:
+
+    ```
+    MPI_Comm_rank(MPI_COMM_WORLD,&myTaskID);
+    MPI_Comm_size(MPI_COMM_WORLD,&nTasks);
+        
+    if (myTaskID==0) leftproc = nTasks-1;
+    else leftproc = myTaskID-1;
+        
+    if (myTaskID==nTasks-1)
+    MPI_Isend(&x[i], 1, MPI_DOUBLE, 0, myTaskID, MPI_COMM_WORLD, &handle_send);
+    else
+    MPI_Isend(&x[i], 1, MPI_DOUBLE, myTaskID+1, myTaskID, MPI_COMM_WORLD, &handle_send);
+
+    if (myTaskID==0)
+    MPI_Irecv(&x_rec, 1, MPI_DOUBLE, nTasks-1, nTasks-1, MPI_COMM_WORLD, &handle_receive);
+    else
+    MPI_Irecv(&x_rec, 1, MPI_DOUBLE, myTaskID-1, myTaskID-1, MPI_COMM_WORLD, &handle_receive);
+
+    MPI_Wait(&handle_receive);
+        
+    y[myTaskID] = y[myTaskID] + x_rec;
+    ```
+
+    The above code sends and receives when ready, and waits to do the summation until the receive is complete. It also handles the irregularities at index 0 in the array. Although this code will likely perform better than its blocked solution, it is at the expense of complicating the buffer semantics.
 
 
 
