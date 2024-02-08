@@ -1,10 +1,10 @@
 ### Part 1: Warm-up Exercises
 * Exercise 2.18
-
+     In the second loop, which is a parallel loop, it writes to the same elements of the array 'a' without any coordination. This lack of synchronization can lead to a conflict condition where multiple threads access and modify the same memory locations simultaneously. As a result, the final values of the elements in array 'a' can be incorrect.
 
 
 * Exercise 2.19
-
+False sharing occurs when multiple threads concurrently access different variables that are located within the same cache line. With a chunksize of 1, adjacent elements of array 'a' are likely to be stored in the same cache line, leading to unnecessary cache line invalidations and transfers between CPU caches as each thread modifies its respective element. This can significantly degrade performance. To mitigate false sharing and improve performance, it is recommended to use a larger chunksize that ensures each thread operates on a distinct portion of the data, minimizing cache line contention. The optimal chunk size depends on the architecture and specific characteristics of the hardware.
 
 
 
