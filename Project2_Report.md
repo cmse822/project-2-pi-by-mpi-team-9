@@ -29,8 +29,7 @@
 
     In a purely distributed model, every node communicates directly with every other node. For example, if there are n nodes, each node needs to send messages to n-1 other nodes, resulting in a total of n*(n-1) messages. In a hybrid model, there's a centralized server. Each node now only needs to send messages to the server. This reduces the number of messages sent. Resulting in n messages in total. (since there's only one message at a time on the bandwidth). Hence, the hybrid model offers significant bandwidth savings compared to the purely distributed model, as it diminishes the volume of messages transmitted across the constrained bandwidth.
 
-    In a purely distributed model, messages must traverse the network directly between nodes, potentially resulting in increased latency as each message independently traverses the network.
-    Conversely, in a hybrid model, messages are routed through a centralized server. While this may introduce additional latency due to the intermediary step, it has the potential to be lower than the latency experienced in the purely distributed model, especially if the centralized server is strategically positioned and the network infrastructure is optimized.
+    In a purely distributed model, messages must traverse the network directly between nodes, potentially resulting in increased latency as each message independently traverses the network. Conversely, in a hybrid model, messages are routed through a centralized server. While this may introduce additional latency due to the intermediary step, it has the potential to be lower than the latency experienced in the purely distributed model, especially if the centralized server is strategically positioned and the network infrastructure is optimized.
 
 
 
@@ -43,8 +42,7 @@
 
     Border Case 2: Only Computation, No Communication:
 
-    All resources are dedicated to computation, and there is no time spent on communication.
-    Overlapping computation and communication in this case is irrelevant since there is no communication to overlap with computation.
+    All resources are dedicated to computation, and there is no time spent on communication. Overlapping computation and communication in this case is irrelevant since there is no communication to overlap with computation.
 
     General Case:
 
