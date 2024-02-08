@@ -44,7 +44,7 @@
 
     All resources are dedicated to computation, and there is no time spent on communication. Overlapping computation and communication in this case is irrelevant since there is no communication to overlap with computation.
 
-    General Case: Both computation and communication occur simultaneously:
+    General Case 3: Both computation and communication occur simultaneously:
 
     There is some overlap between them. The gain from overlapping computation and communication in this case depends on several factors:
     The extent to which computation and communication can be overlapped without affecting the overall performance.
