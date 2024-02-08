@@ -80,12 +80,12 @@
     The extent to which computation and communication can be overlapped without affecting the overall performance.
     The nature of the tasks being performed and their dependencies. Some tasks may require data from communication before computation can proceed, while others may not. The efficiency of the system in managing and coordinating overlapping tasks. By optimizing the overlap between computation and communication, it's possible to reduce the overall execution time of a task or process.
 
----
+
 ## Part 2 (skipped)
----
+
 ## Part 3 MPI Basic
 
-See the code in [Part3-MPI-Basic folder](project-2-pi-by-mpi-team-9/Part3-MPI-Basic)
+See the code in [Part3-MPI-Basic folder](./Part3-MPI-Basic)
 
----
+
 ## Part 4: Eat Some Pi 
