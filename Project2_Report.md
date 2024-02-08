@@ -1,4 +1,4 @@
-### Part 1: Warm-up Exercises
+## Part 1: Warm-up Exercises
 * Exercise 2.18
      
      In the second loop, which is a parallel loop, it writes to the same elements of the array 'a' without any coordination. This lack of synchronization can lead to a conflict condition where multiple threads access and modify the same memory locations simultaneously. As a result, the final values of the elements in array 'a' can be incorrect.
@@ -79,3 +79,13 @@
     There is some overlap between them. The gain from overlapping computation and communication in this case depends on several factors:
     The extent to which computation and communication can be overlapped without affecting the overall performance.
     The nature of the tasks being performed and their dependencies. Some tasks may require data from communication before computation can proceed, while others may not. The efficiency of the system in managing and coordinating overlapping tasks. By optimizing the overlap between computation and communication, it's possible to reduce the overall execution time of a task or process.
+
+---
+## Part 2 (skipped)
+---
+## Part 3 MPI Basic
+
+See the code in [Part3-MPI-Basic folder](project-2-pi-by-mpi-team-9/Part3-MPI-Basic)
+
+---
+## Part 4: Eat Some Pi 
