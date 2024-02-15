@@ -117,9 +117,9 @@ if (rank == 0) {
     if (outFile.is_open()) {
         // Add header if the file is empty
         if (outFile.tellp() == 0) {
-            outFile << "cores, wall_time ,pi" << endl;
+            outFile << "cores, wall_time ,pi, darts, rounds" << endl;
         }
-        outFile << size << "," << max_elapsed_time << "," << all_avepi/size << endl;
+        outFile << size << "," << max_elapsed_time << "," << all_avepi/size << "," << darts << "," << rounds << endl;
         outFile.close();
         cout << "Results appended to results.csv" << endl;
     } else {
