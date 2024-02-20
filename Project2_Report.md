@@ -141,8 +141,8 @@ See the code in [Part3-MPI-Basic folder](./Part3-MPI-Basic)
 
 ## Part 4: Eat Some Pi 
 
-* 1.
-* 2. It is observable that changing the number of ranks doesn't significantly affect runtime since it is not distributed.
+* 1-
+* 2- It is observable that changing the number of ranks doesn't significantly affect runtime since it is not distributed.
 
 | #  of ranks| 1 | 2 | 3 | 4|
 |:-----:|:---------:|:----------------:|:-----:|:------:|
@@ -150,15 +150,18 @@ See the code in [Part3-MPI-Basic folder](./Part3-MPI-Basic)
 
 
 
-* 3. In this case, we can observe that changing the number of ranks decreases runtime.
+* 3- In this case, we can observe that changing the number of ranks decreases runtime.
 
 | #  of ranks | 1 | 2 | 3 | 4|
 |:-----:|:---------:|:----------------:|:-----:|:------:|
 |   Time (ms)  |   33.900   | 13.610 | 9.341 |  6.965   |
 
-* 4.
-* 5.
-* 6.
-* 7.
+![Time vs. Number of Ranks](./Image/4.3.png)
+
+
+* 4-
+* 5-
+* 6-
+* 7-
 
 
