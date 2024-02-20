@@ -1,6 +1,6 @@
 ## Part 1: Warm-up Exercises
 * Exercise 2.18
-     
+
      In the second loop, which is a parallel loop, it writes to the same elements of the array 'a' without any coordination. This lack of synchronization can lead to a conflict condition where multiple threads access and modify the same memory locations simultaneously. As a result, the final values of the elements in array 'a' can be incorrect.
 
 
@@ -11,13 +11,13 @@
 
 
 * Exercise 2.21
-    
+
     There is still a problem left with this code: the boundary conditions from the original, global, version have not been taken into account. Give code that solves that problem.
     ```
     if (myTaskID==0 && i == 0)
         a[i] = (b[i]+bright)/2
     else if (myTaskID==nTasks-1 && i == nTasks)
-    a[i] = (b[i]+bleft)/2 
+    a[i] = (b[i]+bleft)/2
     ```
     For the case of myTaskID==0, only two values are averaged, as there is no value left of the first element. For the case of myTaskID==nTasks-1, again only two values are averaged, as there is no value right of the last element.
 
@@ -30,10 +30,10 @@
     ```
     MPI_Comm_rank(MPI_COMM_WORLD,&myTaskID);
     MPI_Comm_size(MPI_COMM_WORLD,&nTasks);
-        
+
     if (myTaskID==0) leftproc = nTasks-1;
     else leftproc = myTaskID-1;
-        
+
     if (myTaskID==nTasks-1)
     MPI_Isend(&x[i], 1, MPI_DOUBLE, 0, myTaskID, MPI_COMM_WORLD, &handle_send);
     else
@@ -45,7 +45,7 @@
     MPI_Irecv(&x_rec, 1, MPI_DOUBLE, myTaskID-1, myTaskID-1, MPI_COMM_WORLD, &handle_receive);
 
     MPI_Wait(&handle_receive);
-        
+
     y[myTaskID] = y[myTaskID] + x_rec;
     ```
 
@@ -54,7 +54,7 @@
 
 
 * Exercise 2.23
-    
+
     To address this question effectively, we can analyze the bandwidth and latency aspects independently.
 
     In a purely distributed model, every node communicates directly with every other node. For example, if there are n nodes, each node needs to send messages to n-1 other nodes, resulting in a total of n*(n-1) messages. In a hybrid model, there's a centralized server. Each node now only needs to send messages to the server. This reduces the number of messages sent. Resulting in n messages in total. (since there's only one message at a time on the bandwidth). Hence, the hybrid model offers significant bandwidth savings compared to the purely distributed model, as it diminishes the volume of messages transmitted across the constrained bandwidth.
@@ -81,7 +81,7 @@
     The nature of the tasks being performed and their dependencies. Some tasks may require data from communication before computation can proceed, while others may not. The efficiency of the system in managing and coordinating overlapping tasks. By optimizing the overlap between computation and communication, it's possible to reduce the overall execution time of a task or process.
 
 
-## Part 2 
+## Part 2
    (skipped)
 ## Part 3 MPI Basic
 
@@ -100,7 +100,7 @@
    Hello, World!
    ```
    The repeated "Hello, World!" output shows that the code successfully ran in parallel with 4 processes, each generating its own "Hello, World!" message.
-* 4. by putting print command in different locations we got this result: 
+* 4. by putting print command in different locations we got this result:
 
    ```
    before INIT
@@ -113,33 +113,33 @@
    After Finalize
    After Finalize
    ```
-    The repeated "before INIT" and "After Finalize"  messages indicate that the print statement before MPI initialization and after finalization is executed multiple times, potentially by each process. 
+    The repeated "before INIT" and "After Finalize"  messages indicate that the print statement before MPI initialization and after finalization is executed multiple times, potentially by each process.
     The "Hello, World!" message appears only once, indicating that the main program code is executed only once
 
 * 5 - Exercises from book:
 
 
-     * Exercise  2.3 : 
-     * Exercise  2.4 : 
+     * Exercise  2.3 :
+     * Exercise  2.4 :
 When summing 8 elements with 4 processors, not all edges in the communication graph of Figure 2.3 correspond to actual communications due to the uneven distribution of elements among processors, resulting in processors with non-overlapping partial sums that don't need to communicate directly. In contrast, when summing 16 elements with 4 processors, all edges in the communication graph represent actual communications since each processor holds a subset of elements that necessitates communication with another processor to exchange partial sums, adhering to the structure depicted in Figure 2.3.
 
-     * Exercise  2.5 : 
+     * Exercise  2.5 :
 
-          1- The iterations of the inner loop are not independent because each iteration depends on the result of the previous iteration. 
+          1- The iterations of the inner loop are not independent because each iteration depends on the result of the previous iteration.
 
           2- Similarly, the iterations of the outer loop are not independent because each iteration depends on the result of the previous iteration of the same loop.
 
-          3- Given that `x[1,1]` is known, `x[2,1]` and `x[1,2]` can be computed independently. This is because `x[2,1]` only depends on `x[1,1]` and `x[2,0]`, while `x[1,2]` only depends on `x[1,1]` and `x[0,2]`. Since `x[2,0]` 
+          3- Given that `x[1,1]` is known, `x[2,1]` and `x[1,2]` can be computed independently. This is because `x[2,1]` only depends on `x[1,1]` and `x[2,0]`, while `x[1,2]` only depends on `x[1,1]` and `x[0,2]`. Since `x[2,0]`
            and `x[0,2]` do not depend on each other, `x[2,1]` and `x[1,2]` can be computed independently.
 
-          4- This observation indeed gives an idea for a parallelization strategy. Since computations for `x[i,j]` can be parallelized for independent cells, a parallel algorithm could distribute these computations across 
+          4- This observation indeed gives an idea for a parallelization strategy. Since computations for `x[i,j]` can be parallelized for independent cells, a parallel algorithm could distribute these computations across
             multiple processors. For example, each processor could be responsible for computing a subset of the independent cells, allowing for concurrent computation and potentially speeding up the overall computation.
 
 
 See the code in [Part3-MPI-Basic folder](./Part3-MPI-Basic)
 
 
-## Part 4: Eat Some Pi 
+## Part 4: Eat Some Pi
 
 * 1-
 * 2- It is observable that changing the number of ranks doesn't significantly affect runtime since it is not distributed.
@@ -212,4 +212,6 @@ See the code in [Part3-MPI-Basic folder](./Part3-MPI-Basic)
 
 * 7-
 
+    ![Efficiency plot](./Image/MultipleNodes.png)
 
+    This plot shows the wall time for 1e6 darts in 100 rounds where the 100 rounds are distributed equally to all the ranks. The max node line corresponds to each "task" or process running on a separate node on hpcc and the min_nodes line corresponds to each "task" running on as few nodes as possible, in this case 2 nodes when we have64 tasks. Since this is a mote carlo method with very limited communication it is no surprise that we can't measure the difference in wall time from one case to the other but for less parallel codes we could reasonable expect max_nodes to be quite a bit slower.
