@@ -74,8 +74,9 @@ try {
 
 my_rounds = int(rounds / size); 
 
-if (rounds%size != 0 && rank == 0) {
-   my_rounds += rounds%size;
+// Distribute extra rounds
+if (rounds%size != 0 && rank < rounds%size) {
+   my_rounds ++;
 }
 
 //printf("Rank : %3d , myrounds = %3d , start = %10.8f\n", rank, my_rounds, start_time);
