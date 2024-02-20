@@ -144,24 +144,72 @@ See the code in [Part3-MPI-Basic folder](./Part3-MPI-Basic)
 * 1-
 * 2- It is observable that changing the number of ranks doesn't significantly affect runtime since it is not distributed.
 
-| #  of ranks| 1 | 2 | 3 | 4|
-|:-----:|:---------:|:----------------:|:-----:|:------:|
-|   Time (ms)  |   27.371   | 27.468 | 27.478 |  27.558   |
+    | #  of ranks| 1 | 2 | 3 | 4|
+    |:-----:|:---------:|:----------------:|:-----:|:------:|
+    |   Time (ms)  |   27.371   | 27.468 | 27.478 |  27.558   |
 
 
 
 * 3- In this case, we can observe that changing the number of ranks decreases runtime.
 
-| #  of ranks | 1 | 2 | 3 | 4|
-|:-----:|:---------:|:----------------:|:-----:|:------:|
-|   Time (ms)  |   33.900   | 13.610 | 9.341 |  6.965   |
+    | #  of ranks | 1 | 2 | 3 | 4|
+    |:-----:|:---------:|:----------------:|:-----:|:------:|
+    |   Time (ms)  |   33.900   | 13.610 | 9.341 |  6.965   |
 
-![Time vs. Number of Ranks](./Image/4.3.png)
+    ![Time vs. Number of Ranks](./Image/4.3.png)
 
 
 * 4-
+
+    For 1E3 darts:
+
+    | cores | wall_time   | pi      | darts      | rounds |
+    |-------|-------------|---------|------------|--------|
+    | 1     | 0.00276148  | 3.14376 | 1000       | 100    |
+    | 2     | 0.00142855  | 3.14344 | 1000       | 100    |
+    | 4     | 0.000809804 | 3.13632 | 1000       | 100    |
+    | 8     | 0.000518852 | 3.12663 | 1000       | 100    |
+    | 16    | 0.000417189 | 3.12685 | 1000       | 100    |
+    | 32    | 0.000367044 | 3.10236 | 1000       | 100    |
+    | 64    | 0.00111323  | 3.08886 | 1000       | 100    |
+
+    For 1E6 darts:
+
+    | cores | wall_time   | pi      | darts      | rounds |
+    |-------|-------------|---------|------------|--------|
+    | 1     | 2.73034     | 3.14174 | 1000000    | 100    |
+    | 2     | 1.36615     | 3.14205 | 1000000    | 100    |
+    | 4     | 0.866184    | 3.14246 | 1000000    | 100    |
+    | 8     | 0.437515    | 3.14214 | 1000000    | 100    |
+    | 16    | 0.273487    | 3.14218 | 1000000    | 100    |
+    | 32    | 0.190529    | 3.14279 | 1000000    | 100    |
+    | 64    | 1.01423     | 3.14287 | 1000000    | 100    |
+
+    For 1E9 darts:
+
+    | cores | wall_time   | pi      | darts      | rounds |
+    |-------|-------------|---------|------------|--------|
+    | 1     | 3600        | 3.14157 | 1000000000 | 100    |
+    | 8     | 435.206     | 3.14157 | 1000000000 | 100    |
+    | 16    | 274.275     | 3.14155 | 1000000000 | 100    |
+    | 32    | 192.022     | 3.14155 | 1000000000 | 100    |
+
+
+
 * 5-
+
+    ![plot the resulting errors in computed values of pi](./Image/4_5.png)
+
+    The rate of convergence appears to be almost linear with the number of darts for computing pi. Computing the slope of the average, assuming linearity, and using the coordinates for 1e3 darts and 1e9 darts, we estimate the slope to be -2.16E-12. This is the estimated rate of convergence. This does make sense, as error decreases as the number of darts increases, and assuming true randomness, this is a reasonable conclusion for the experiment. The rate of convergence does not appear to vary with processor count and this also makes sense; the distribution of embarrassingly parallel tasks across multiple processors should not affect the end result. Here, it does not and should not.
+
 * 6-
+
+    ![walltime vs darts](./Image/F3.png)
+
+    ![Efficiency plot](./Image/F4.png)
+
+    The parallel performance varies with the number of darts utilized. When fewer darts are employed, efficiency decreases rapidly as the number of processors increases. For smaller dart counts or problem sizes, it is generally more advantageous to execute computations sequentially. However, as the problem size expands, greater efficiency is achieved with an increasing number of processors. This phenomenon is likely attributed to computations becoming compute-bound for larger problem sizes, with any slowdowns from data transfer becoming negligible. In summary, the strong scaling problem of computing pi using this project's methodology demonstrates greater efficiency across multiple processors with larger problem sizes.
+
 * 7-
 
 
